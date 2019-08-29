@@ -1,31 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-
+import request from 'superagent';
 import GifList from './GifList';
+import SearchBar from './SearchBar';
 import * as serviceWorker from './serviceWorker';
 
-class App extends React.Component {
+class App extends React.Component { 
+
   constructor() {
     super();
 
     this.state = {
-      gifs: [
-	{
-	  id: 1,
-	  url: 'http://fakeimg.pl/300/'
-	},
-	{
-	  id: 2,
-	  url: 'http://fakeimg.pl/300/'
-	},
-	{
-	  id: 3,
-	  url: 'http://fakeimg.pl/300/'
-	}
-      ]
-    }
+      gifs: []
+    };
+
+    this.handleTermChange = this.handleTermChange.bind(this);
   }
+
+  handleTermChange(term) {
+    const giphyAPI = 'df4Kip5xanlPR49BrFPbDYar6kFWW1LT'
+    const giphyURL = `http://api.giphy.com/v1/gifs/search?q=${term.replace(/\s/g, '+')}&api_key=${giphyAPI}`;
+
+    request.get(giphyURL,(err, res) => {
+      this.setState({gifs: res.body.data});
+    }); 
+  } 
 
   render() {
     return(
@@ -36,6 +36,7 @@ class App extends React.Component {
         <h2>the best dog gifs you have ever seen!</h2>
       </header>
      </div>
+      <SearchBar onTermChange={this.handleTermChange}/>
       <GifList gifs={this.state.gifs}/>
       </>
     );
