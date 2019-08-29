@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './App.css';
 import request from 'superagent';
 import GifList from './GifList';
-import SearchBar from './SearchBar';
+import DogButton from './DogButton';
 import * as serviceWorker from './serviceWorker';
 
 class App extends React.Component { 
@@ -18,9 +18,8 @@ class App extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
   }
 
-  handleTermChange(term) {
-    const giphyAPI = 'df4Kip5xanlPR49BrFPbDYar6kFWW1LT'
-    const giphyURL = `http://api.giphy.com/v1/gifs/search?q=${term.replace(/\s/g, '+')}&api_key=${giphyAPI}`;
+  handleTermChange(term: 'dogs') {
+    const giphyURL = `http://api.giphy.com/v1/gifs/search?q=dogs&api_key=df4Kip5xanlPR49BrFPbDYar6kFWW1LT`;
 
     request.get(giphyURL,(err, res) => {
       this.setState({gifs: res.body.data});
@@ -34,9 +33,10 @@ class App extends React.Component {
 	<header className="App-header">
         <h1>Dogiphy 🐶</h1>
         <h2>the best dog gifs you have ever seen!</h2>
+	<p>Created with ♥ by <a href="https://gabrielpolastrini.com" target="_blank">Gabriel Polastrini</a> </p>
       </header>
      </div>
-      <SearchBar onTermChange={this.handleTermChange}/>
+      <DogButton onTermChange={this.handleTermChange}/>
       <GifList gifs={this.state.gifs}/>
       </>
     );
