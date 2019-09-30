@@ -1,5 +1,5 @@
 # Dogiphy
-🐶🎥 The best dog gifs you have ever seen! [Demo](https://dogiphy.r00tgp.now.sh)
+🐶🎥 The best dog gifs you have ever seen! [Demo](https://dogiphy.gabrielpolastrini.com/)
 
 ![preview](./preview.png)
 
